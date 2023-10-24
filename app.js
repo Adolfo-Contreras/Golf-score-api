@@ -7,6 +7,9 @@ function calcCourseData(){};
 function addTblInfo(){};
 //populate table with players
 function addPlayers(){};
+
+    //event listener to add players
+    document.getElementById('addPlayerBtn').addEventListener('click',()=>{addPlayers()})
 //calculate player data
 function calcPlayerData(){};
 //create the tables
