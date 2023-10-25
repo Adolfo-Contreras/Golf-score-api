@@ -14,7 +14,7 @@ function addPlayers(){};
 function calcPlayerData(){};
 //create the tables
 function renderTbl(){}
-//ANIMATIONS AND STYLE STUFF GO HERE
+//ANIMATIONS AND STYLE STUFF GO HERE if we even do it which idk if we will
 
     //change color palates
 
