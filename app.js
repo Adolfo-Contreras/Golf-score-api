@@ -1,6 +1,21 @@
 "use strict";
 //get course data
-function getCourse(courseid){
+function getCourses(){
+    return fetch(
+        `https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/courses.json`,
+        ).then(function (response) {
+            if(!response.ok) {
+                throw new Error('Network response was not ok');
+              }else{return response.json()}
+        }
+    ).then(function (data){
+        return data
+    }).catch(function (error){
+        console.error('Error:',error);
+    })
+}
+
+function getCourseDetails(courseid){
     return fetch(
         `https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/course${courseid}.json`,
         ).then(function (response) {
@@ -17,7 +32,7 @@ function getCourse(courseid){
 let FoxGolf = document.getElementById('FoxGolf');
 FoxGolf.addEventListener('click',()=>{
     console.log(FoxGolf.value);
-    console.log(getCourse(FoxGolf.value));
+    console.log(getCourseDetails(FoxGolf.value));
 });
 //populate tables with info
 function addTblInfo(){};
