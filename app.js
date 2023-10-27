@@ -1,6 +1,20 @@
 "use strict";
 //get course data
-function getCourse(courseid){
+function getCourses(){
+    return fetch(
+        `https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/courses.json`,
+        ).then(function (response) {
+            if(!response.ok) {
+                throw new Error('Network response was not ok');
+              }else{return response.json()}
+        }
+    ).then(function (data){
+        return data
+    }).catch(function (error){
+        console.error('Error:',error);
+    })
+}
+function getCourseDetails(courseid){
     return fetch(
         `https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/course${courseid}.json`,
         ).then(function (response) {
@@ -14,11 +28,22 @@ function getCourse(courseid){
         console.error('Error:',error);
     })
 }
-let FoxGolf = document.getElementById('FoxGolf');
-FoxGolf.addEventListener('click',()=>{
-    console.log(FoxGolf.value);
-    console.log(getCourse(FoxGolf.value));
-});
+// .finally(function(data){data[1]})
+console.log(getCourses().then(function(data) {
+    // Access the array of golf course objects
+    const golfCourses = data;
+
+    // You can now work with the data
+    for (const course of golfCourses) {
+      console.log(`Course ID: ${course.id}`);
+      console.log(`Course Name: ${course.name}`);
+      console.log(`Course URL: ${course.url}`);
+    }
+  })
+  .catch(function(error) {
+    // Handle any errors here
+    console.error('Error:', error);
+  }))
 //populate tables with info
 function addTblInfo(){};
 //calculate course data
