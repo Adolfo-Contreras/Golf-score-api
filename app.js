@@ -28,12 +28,21 @@ function getCourseDetails(courseid){
         console.error('Error:',error);
     })
 }
+let foxGolf = document.getElementById('FoxGolf')
+let thanksgivingGolf = document.getElementById('ThanksgivingGolf')
+let spanishGolf = document.getElementById('SpanishGolf')
+foxGolf.addEventListener('click',()=>{
+    console.log(getCourseDetails(foxGolf.value))
+})
+thanksgivingGolf.addEventListener('click',()=>{
+    console.log(getCourseDetails(thanksgivingGolf.value))
+})
+spanishGolf.addEventListener('click',()=>{
+    console.log(getCourseDetails(spanishGolf.value))
+})
 // .finally(function(data){data[1]})
 console.log(getCourses().then(function(data) {
-    // Access the array of golf course objects
     const golfCourses = data;
-
-    // You can now work with the data
     for (const course of golfCourses) {
       console.log(`Course ID: ${course.id}`);
       console.log(`Course Name: ${course.name}`);
@@ -41,7 +50,6 @@ console.log(getCourses().then(function(data) {
     }
   })
   .catch(function(error) {
-    // Handle any errors here
     console.error('Error:', error);
   }))
 
@@ -49,12 +57,15 @@ console.log(getCourses().then(function(data) {
 function createGolfOptions(){
 
 }
+//calculate course data
+function calcCourseData(course){
+    getCourseDetails(course)
+};
 //populate tables with info
 function addTblInfo(){};
-//calculate course data
-function calcCourseData(){};
-//populate table with players
-function addPlayers(){};
+
+//populate table with players yo yo yo if you can also do this one then that would be cool
+function addPlayers(){}; 
 
     //event listener to add players
     document.getElementById('addPlayerBtn').addEventListener('click',()=>{addPlayers()})
