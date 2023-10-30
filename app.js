@@ -44,6 +44,11 @@ console.log(getCourses().then(function(data) {
     // Handle any errors here
     console.error('Error:', error);
   }))
+
+//qwertyqwertyqwerty yo yo yo my brudda you gonna do this one
+function createGolfOptions(){
+
+}
 //populate tables with info
 function addTblInfo(){};
 //calculate course data
