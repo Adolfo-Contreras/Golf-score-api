@@ -55,7 +55,7 @@ console.log(getCourses().then(function(data) {
 
 //qwertyqwertyqwerty yo yo yo my brudda you gonna do this one
 function createGolfOptions(){
-
+    
 }
 //calculate course data
 function calcCourseData(course){
