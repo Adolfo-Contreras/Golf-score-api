@@ -39,8 +39,11 @@ thanksgivingGolf.addEventListener('click',()=>{
 })
 spanishGolf.addEventListener('click',()=>{
     console.log(getCourseDetails(spanishGolf.value))
+    console.log(calcCourseData(spanishGolf.value))
 })
 // .finally(function(data){data[1]})
+
+
 console.log(getCourses().then(function(data) {
     const golfCourses = data;
     for (const course of golfCourses) {
@@ -59,7 +62,17 @@ function createGolfOptions(){
 }
 //calculate course data
 function calcCourseData(course){
-    getCourseDetails(course)
+    getCourseDetails(course).then(function(data) {
+        const golfCourses = data;
+        for (const course of golfCourses) {
+          console.log(`Course ID: ${course.id}`);
+          console.log(`Course Name: ${course.holes}`);
+          console.log(`Course URL: ${course.holes}`);
+        }
+      })
+      .catch(function(error) {
+        console.error('Error:', error);
+      })
 };
 //populate tables with info
 function addTblInfo(){};
