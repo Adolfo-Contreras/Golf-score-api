@@ -14,6 +14,8 @@ function getCourses(){
         console.error('Error:',error);
     })
 }
+
+//ENTIRELY DIFFERENT FUNCTION
 function getCourseDetails(courseid){
     return fetch(
         `https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/course${courseid}.json`,
@@ -39,11 +41,11 @@ thanksgivingGolf.addEventListener('click',()=>{
 })
 spanishGolf.addEventListener('click',()=>{
     console.log(getCourseDetails(spanishGolf.value))
-    console.log(calcCourseData(spanishGolf.value))
+    console.log(getTotalYrds(spanishGolf.value))
 })
 // .finally(function(data){data[1]})
 
-
+//example of how to access data with the 2 main api fuctions
 console.log(getCourses().then(function(data) {
     const golfCourses = data;
     for (const course of golfCourses) {
@@ -61,7 +63,7 @@ function createGolfOptions(){
 
 }
 //calculate total yards and get hole and whatnot
-function calcCourseData(course){
+function getTotalYrds(course){
     getCourseDetails(course).then(function(data) {
         const thisCourse = data;
         const courseHoles = thisCourse.holes;
@@ -73,6 +75,8 @@ function calcCourseData(course){
             console.log(`Total yards: ${totalYRD}`)
             // this gets the yards of the first teebox which is champion in this case
         });
+        console.log(`Total of whole course yards: ${totalYRD}`)
+        return totalYRD;
       })
       .catch(function(error) {
         console.error('Error:', error);
