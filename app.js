@@ -2,7 +2,7 @@
 //get course data
 function getCourses(){
     return fetch(
-        `https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/courses.json`,
+            `https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/courses.json`,
         ).then(function (response) {
             if(!response.ok) {
                 throw new Error('Network response was not ok');
@@ -44,37 +44,52 @@ spanishGolf.addEventListener('click',()=>{
 console.log(getCourses().then(function(data) {
     const golfCourses = data;
     for (const course of golfCourses) {
-      console.log(`Course ID: ${course.id}`);
-      console.log(`Course Name: ${course.name}`);
-      console.log(`Course URL: ${course.url}`);
+    //   console.log(`Course ID: ${course.id}`);
+    //   console.log(`Course Name: ${course.name}`);
+    //   console.log(`Course URL: ${course.url}`);
+      console.log(`Course test: ${course.measurementTypeId}`);
     }
   })
   .catch(function(error) {
     console.error('Error:', error);
   }))
 
+
 //qwertyqwertyqwerty yo yo yo my brudda you gonna do this one
 function createGolfOptions(){
-    
+    let dropDown = document.getElementById('TeeBoxSel');
+    let input = '';
+    for (let i=0;i<4;i++) {
+        input = `<option value="test">test</option>`;
+        dropDown.innerHTML += input;
+    }
 }
+createGolfOptions();
+
 //calculate course data
 function calcCourseData(course){
     getCourseDetails(course)
 };
+
 //populate tables with info
 function addTblInfo(){};
 
 //populate table with players yo yo yo if you can also do this one then that would be cool
-function addPlayers(){}; 
-
+function addPlayers(){; 
     //event listener to add players
+
     document.getElementById('addPlayerBtn').addEventListener('click',()=>{addPlayers()})
+}
+
 //calculate player data
-function calcPlayerData(){};
+function calcPlayerData(){;
 //create the tables
-function renderTbl(){}
+}
+
+function renderTbl(){
 //ANIMATIONS AND STYLE STUFF GO HERE if we even do it which idk if we will
 
     //change color palates
 
     //animate top menu
+}
