@@ -60,15 +60,19 @@ console.log(getCourses().then(function(data) {
 function createGolfOptions(){
 
 }
-//calculate course data
+//calculate total yards and get hole and whatnot
 function calcCourseData(course){
     getCourseDetails(course).then(function(data) {
-        const golfCourses = data;
-        for (const course of golfCourses) {
-          console.log(`Course ID: ${course.id}`);
-          console.log(`Course Name: ${course.holes}`);
-          console.log(`Course URL: ${course.holes}`);
-        }
+        const thisCourse = data;
+        const courseHoles = thisCourse.holes;
+        let totalYRD = 0;
+        courseHoles.forEach((element) => {
+            console.log(`Hole: ${element.hole}`)
+            let yrd = element.teeBoxes[0].yards;
+            totalYRD += yrd
+            console.log(`Total yards: ${totalYRD}`)
+            // this gets the yards of the first teebox which is champion in this case
+        });
       })
       .catch(function(error) {
         console.error('Error:', error);
