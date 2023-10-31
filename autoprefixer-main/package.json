@@ -1,0 +1,120 @@
+{
+  "name": "autoprefixer",
+  "version": "10.4.16",
+  "description": "Parse CSS and add vendor prefixes to CSS rules using values from the Can I Use website",
+  "engines": {
+    "node": "^10 || ^12 || >=14"
+  },
+  "keywords": [
+    "autoprefixer",
+    "css",
+    "prefix",
+    "postcss",
+    "postcss-plugin"
+  ],
+  "scripts": {
+    "unit": "uvu . '\\.test\\.js$'",
+    "test:coverage": "c8 pnpm unit",
+    "test:lint": "eslint . bin/*",
+    "test:size": "size-limit",
+    "test": "pnpm run /^test:/"
+  },
+  "main": "lib/autoprefixer.js",
+  "bin": "bin/autoprefixer",
+  "types": "lib/autoprefixer.d.ts",
+  "funding": [
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/postcss/"
+    },
+    {
+      "type": "tidelift",
+      "url": "https://tidelift.com/funding/github/npm/autoprefixer"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/ai"
+    }
+  ],
+  "author": "Andrey Sitnik <andrey@sitnik.ru>",
+  "license": "MIT",
+  "repository": "postcss/autoprefixer",
+  "bugs": {
+    "url": "https://github.com/postcss/autoprefixer/issues"
+  },
+  "peerDependencies": {
+    "postcss": "^8.1.0"
+  },
+  "dependencies": {
+    "browserslist": "^4.21.10",
+    "caniuse-lite": "^1.0.30001538",
+    "fraction.js": "^4.3.6",
+    "normalize-range": "^0.1.2",
+    "picocolors": "^1.0.0",
+    "postcss-value-parser": "^4.2.0"
+  },
+  "devDependencies": {
+    "@logux/eslint-config": "^52.0.1",
+    "@size-limit/preset-small-lib": "9.0.0",
+    "c8": "^8.0.1",
+    "clean-publish": "^4.2.0",
+    "eslint": "^8.49.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-n": "^16.1.0",
+    "eslint-plugin-prefer-let": "^3.0.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "nanospy": "^1.0.0",
+    "postcss": "^8.4.30",
+    "size-limit": "^9.0.0",
+    "uvu": "^0.5.6"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "jsxSingleQuote": false,
+    "quoteProps": "consistent",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
+  },
+  "size-limit": [
+    {
+      "limit": "60 KB"
+    }
+  ],
+  "eslintConfig": {
+    "extends": "@logux/eslint-config",
+    "rules": {
+      "node-import/prefer-node-protocol": "off",
+      "no-console": "off"
+    },
+    "overrides": [
+      {
+        "files": [
+          "bin/autoprefixer"
+        ],
+        "rules": {
+          "n/global-require": "off"
+        }
+      },
+      {
+        "files": [
+          "data/prefixes.js"
+        ],
+        "rules": {
+          "import/order": "off"
+        }
+      }
+    ]
+  },
+  "c8": {
+    "exclude": [
+      "**/*.test.*"
+    ],
+    "lines": 100,
+    "check-coverage": true
+  },
+  "clean-publish": {
+    "cleanDocs": true
+  }
+}
