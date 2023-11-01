@@ -41,7 +41,7 @@ thanksgivingGolf.addEventListener('click',()=>{
 })
 spanishGolf.addEventListener('click',()=>{
     console.log(getCourseDetails(spanishGolf.value))
-    console.log(getTotalYrds(spanishGolf.value))
+    console.log(getPar(spanishGolf.value))
 })
 // .finally(function(data){data[1]})
 
@@ -82,6 +82,68 @@ function getTotalYrds(course){
         console.error('Error:', error);
       })
 };
+//get the handicaps and return them in an array
+function getPar(course){
+    getCourseDetails(course).then(function(data) {
+        const thisCourse = data;
+        const courseHoles = thisCourse.holes;
+        let arrOfPar = [];
+        courseHoles.forEach((element) => {
+            let thing = element.teeBoxes[0].teeType;
+            console.log(`Teebox: ${thing}`)
+            console.log(`Hole: ${element.hole}`)
+            let par = element.teeBoxes[0].par;
+            arrOfPar.push(par)
+            console.log(`Total yards: ${arrOfPar}`)
+        });
+        console.log(`Total of handicap course yards: ${arrOfPar}`)
+        return arrOfPar;
+      })
+      .catch(function(error) {
+        console.error('Error:', error);
+      })
+};
+//get the handicaps and return them in an array
+function getHandicap(course){
+    getCourseDetails(course).then(function(data) {
+        const thisCourse = data;
+        const courseHoles = thisCourse.holes;
+        let arrOfHandicap = [];
+        courseHoles.forEach((element) => {
+            let thing = element.teeBoxes[0].teeType;
+            console.log(`Teebox: ${thing}`)
+            console.log(`Hole: ${element.hole}`)
+            let hcp = element.teeBoxes[0].hcp;
+            let par = element.teeBoxes[0].par;
+            arrOfHandicap.push(hcp+par)
+            console.log(`Total yards: ${arrOfHandicap}`)
+        });
+        console.log(`Total of handicap course yards: ${arrOfHandicap}`)
+        return arrOfHandicap;
+      })
+      .catch(function(error) {
+        console.error('Error:', error);
+      })
+};
+// get yards per hole and gives them back in an array
+function getYrdHole(course){
+    getCourseDetails(course).then(function(data) {
+        const thisCourse = data;
+        const courseHoles = thisCourse.holes;
+        let arrOfHoles = [];
+        courseHoles.forEach((element) => {
+            console.log(`Hole: ${element.hole}`)
+            let yrd = element.teeBoxes[0].yards;
+            arrOfHoles.push(yrd)
+            console.log(`yards for this hole: ${arrOfHoles}`)
+        });
+        console.log(`Yards of all Holes: ${arrOfHoles}`)
+        return arrOfHoles;
+      })
+      .catch(function(error) {
+        console.error('Error:', error);
+      })
+};
 //populate tables with info
 function addTblInfo(){};
 
@@ -91,7 +153,15 @@ function addPlayers(){};
     //event listener to add players
     document.getElementById('addPlayerBtn').addEventListener('click',()=>{addPlayers()})
 //calculate player data
-function calcPlayerData(){};
+let playerScores = []
+function calcPlayerScore(player){
+    //idk how to access the players data but ill make the thing so it adds them up
+    let playerTotal = 0;
+    playerScores.forEach((element)=>{
+        playerTotal += element;
+    })
+    return playerTotal;
+};
 //create the tables
 function renderTbl(){}
 //ANIMATIONS AND STYLE STUFF GO HERE if we even do it which idk if we will
