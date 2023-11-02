@@ -27,25 +27,22 @@
                 </select>
             </div>
 
-            <div>
+            <div id="teeBoxSelCover" class="d-none">
                 <h1 id="asd">Select a Tee Box</h1>
                 <h6>(Note:All Players Will Play The Same Tee Box)</h5>
                 <select name="Teebox" id="TeeBoxSel">
-                    <option value="mens">Mens</option>
-                    <option value="womens">Womens</option>
-                    <option value="Champion">Championship</option>
-                    <option value="Pro">Pro</option>
                 </select>
             </div>
             
             <div>
                 <h1 class="mb-4">Add up to 4 Players to the Game</h1>
+                <div id="warningPocket">
+                </div>
                 <input class="rounded" type="text" name="PlayerName" id="PlayerName" placeholder="Enter Player Name Here">
-                <button class="rounded btn-info" type="button" value="Add Player" id="addPlayerBtn">Add Player</button>
+                <button class="rounded btn-info" onClick="addPlayers(this.previousElementSibling.value)" type="button" value="Add Player" id="addPlayerBtn">Add Player</button>
             </div>
 
             <ul class="list-group-numbered" id="showPlayers">
-                <li class="list-group-item active">im first!</li>
             </ul>
             
         </section>
