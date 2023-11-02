@@ -66,16 +66,18 @@ function createGolfOptions(course){
     getCourseDetails(course).then(function(data) {
         const thisCourse = data;
         const courseTees = thisCourse.holes[0].teeBoxes; //goes into the first hole just to get the teeboxes
-
+        console.log('test');
         document.getElementById('teeBoxSelCover').classList.remove('d-none') // grabs the parent div and toggles off the disply:hidden; propety
         let list = document.getElementById('TeeBoxSel')
 
         list.innerHTML = '<option>Select One</option>'// resets the dropdown to this
 
         //adds every Tee option except for the weird one
+        let ids = 0;
         courseTees.forEach((elem) => {
             let clean = elem.teeType
-            if (clean !== 'auto change location') list.innerHTML += `<option value="${clean}">${clean}</option>`
+            if (clean !== 'auto change location') list.innerHTML += `<option value="${ids}">${clean}</option>`
+            ids++
         });
       })
       .catch(function(error) {
@@ -207,6 +209,6 @@ function calcPlayerScore(player){
 function renderTbl(){}
 //ANIMATIONS AND STYLE STUFF GO HERE if we even do it which idk if we will
 
-    //change color palates
+    //change color palate
 
     //animate top menu
