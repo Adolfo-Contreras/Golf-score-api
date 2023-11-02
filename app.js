@@ -33,9 +33,11 @@ function getCourseDetails(courseid){
 let foxGolf = document.getElementById('FoxGolf')
 let thanksgivingGolf = document.getElementById('ThanksgivingGolf')
 let spanishGolf = document.getElementById('SpanishGolf')
+
 foxGolf.addEventListener('click',()=>{
     console.log(getCourseDetails(foxGolf.value))
     createGolfOptions(foxGolf.value)
+    getYrdHole(foxGolf.value)
 })
 thanksgivingGolf.addEventListener('click',()=>{
     console.log(getCourseDetails(thanksgivingGolf.value))
@@ -76,7 +78,7 @@ function createGolfOptions(course){
         let ids = 0;
         courseTees.forEach((elem) => {
             let clean = elem.teeType
-            if (clean !== 'auto change location') list.innerHTML += `<option id= value="${ids}">${clean}</option>`
+            if (clean !== 'auto change location') list.innerHTML += `<option id="teebox-${ids}" value="${ids}" onClick="teeBoxTBL(this.id)">${clean}</option>`
             ids++
         });
       })
@@ -180,24 +182,58 @@ function holes(){
 }
 //render tables with info
 function addTblInfo(){
+    holes();
 
+
+}
+
+
+//populate tables with info
+function teeBoxTBL(id){
+    Number(id.charAt(7))
+
+    // getCourseDetails(course).then(function(data) {
+    //     const thisCourse = data;
+    //     const courseTees = thisCourse.holes[0].teeBoxes; //goes into the first hole just to get the teeboxes
+    //     console.log('test');
+ 
+    //   })
+    //   .catch(function(error) {
+    //     console.error('Error:', error);
+    //   })
+}
+
+function addTblInfo(){
+    
 };
 
 //populate table with players yo yo yo if you can also do this one then that would be cool
+let incr = 1;
+let tbl = document.getElementById('playersTbl')
+let playerList = 0;
 function addPlayers(elem){
-    let playerList = document.getElementById('showPlayers')
+    // let playerList = document.getElementById('showPlayers')
     let playerWarn = document.getElementById('warningPocket')
-    if (playerList.childElementCount !== 4) {
-        playerList.innerHTML += `<li class="list-group-item active">${elem}</li>`
+    console.log(playerList);
+    if (playerList !== 4) {
+        playerList++
+        if (elem === '') console.log('enter something smh');
+        else {
+            // playerList.innerHTML += `<li class="list-group-item active">${elem}</li>`
+            tbl.innerHTML += `
+                <tr id="player${incr}">
+                <td>${elem}</td>
+                </tr>
+            `;
+incr++
+        }
     } else {
         playerWarn.innerHTML = `
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+            <strong>Woah there buddy!</strong> Max player limit reached!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`
     }
-    console.log(playerList.childElementCount);
-
 }; 
 
 //calculate player data
