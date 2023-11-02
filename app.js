@@ -76,7 +76,7 @@ function createGolfOptions(course){
         let ids = 0;
         courseTees.forEach((elem) => {
             let clean = elem.teeType
-            if (clean !== 'auto change location') list.innerHTML += `<option value="${ids}">${clean}</option>`
+            if (clean !== 'auto change location') list.innerHTML += `<option id= value="${ids}">${clean}</option>`
             ids++
         });
       })
@@ -171,8 +171,14 @@ function getYrdHole(course){
         console.error('Error:', error);
       })
 };
-
-//populate tables with info
+//get holes
+function holes(){
+    let holeRow = document.getElementById('holeRow')
+    for(let i = 1;i<19;i++){
+        holeRow.innerHTML += `<td class="active">${i}</td>`
+    }
+}
+//render tables with info
 function addTblInfo(){
 
 };
@@ -195,9 +201,10 @@ function addPlayers(elem){
 }; 
 
 //calculate player data
-let playerScores = []
+
 function calcPlayerScore(player){
     //idk how to access the players data but ill make the thing so it adds them up
+    let playerScores = []
     let playerTotal = 0;
     playerScores.forEach((element)=>{
         playerTotal += element;
