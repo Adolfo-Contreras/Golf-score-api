@@ -177,7 +177,7 @@ function getYrdHole(course){
 function holes(){
     let holeRow = document.getElementById('holeRow')
     for(let i = 1;i<19;i++){
-        holeRow.innerHTML += `<td class="active">${i}</td>`
+        holeRow.innerHTML += `<td>${i}</td>`
     }
 }
 //render tables with info
@@ -186,7 +186,7 @@ function addTblInfo(){
 
 
 }
-
+// holes()
 
 //populate tables with info
 function teeBoxTBL(id){
