@@ -20,17 +20,17 @@
             <div>
                 <h1>Please Select a Course</h1>
                 <select name="GolfCourse" id="GolfCourseSelect" class="w-50">
-                    <option id="ThanksgivingGolf" class="text-break w-25" value="11819">Thanksgiving Point Golf Course (Course ID: 11819)</option>
-                    <option id="FoxGolf" class="text-break w-25" value="18300">Fox Hollow Golf Course (Course ID: 18300)</option>
-                    <option id="SpanishGolf" class="text-break w-25" value="19002">Spanish Oaks Golf Course (Course ID: 19002)</option>
+                    <option id="ThanksgivingGolf" class="text-break w-25" value="11819" onclick="createGolfOptions(this.value)">Thanksgiving Point Golf Course (Course ID: 11819)</option>
+                    <option id="FoxGolf" class="text-break w-25" value="18300" onclick="createGolfOptions(this.value)">Fox Hollow Golf Course (Course ID: 18300)</option>
+                    <option id="SpanishGolf" class="text-break w-25" value="19002" onclick="createGolfOptions(this.value)">Spanish Oaks Golf Course (Course ID: 19002)</option>
                 </select>
             </div>
 
             <div id="teeBoxSelCover" class="d-none">
                 <h1 id="asd">Select a Tee Box</h1>
                 <h6>(Note: All Players Will Play The Same Tee Box)</h5>
-                <select name="Teebox" id="TeeBoxSel">
-
+                <select name="Teebox" id="TeeBoxSel" class="">
+                    <!-- the options are generated here -->
                 </select>
             </div>
             
@@ -57,7 +57,7 @@
             <table class="table table-striped rounded-5" id="noMar">
                 <thead>
                     <tr id="tableInfo">
-                        <th>Course: 11819</th>
+                        <th id="courseID">Course: ??????</th>
                     </tr>
                 </thead>
                 <tbody>
