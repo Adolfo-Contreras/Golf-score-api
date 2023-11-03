@@ -36,19 +36,19 @@ let spanishGolf = document.getElementById('SpanishGolf')
 
 
 foxGolf.addEventListener('click',()=>{
-    // getHandicap(foxGolf.value)
-    // console.log(foxGolf.value);
-
-    // getYrdHole(foxGolf.value)
+    let course = foxGolf.value;
+    let courseID = document.getElementById('courseID')
+    courseID.innerHTML = `Course: ${course}`
 })
 thanksgivingGolf.addEventListener('click',()=>{
-    // console.log(thanksgivingGolf.value)
-
+    let course = thanksgivingGolf.value;
+    let courseID = document.getElementById('courseID')
+    courseID.innerHTML = `Course: ${course}`
 })
 spanishGolf.addEventListener('click',()=>{
-    // console.log(spanishGolf.value)
-
-    // console.log(getPar(spanishGolf.value))
+    let course = spanishGolf.value;
+    let courseID = document.getElementById('courseID')
+    courseID.innerHTML = `Course: ${course}`
 })
 // .finally(function(data){data[1]})
 
@@ -90,11 +90,8 @@ function createGolfOptions(course){
       })
 }
 
-function test() {
-
-}
-
 //calculate total yards and get hole and whatnot
+// haven't done this one yet
 function getTotalYrds(course){
     getCourseDetails(course).then(function(data) {
         const thisCourse = data;
@@ -116,53 +113,44 @@ function getTotalYrds(course){
 };
 
 //get the handicaps and return them in an array
-function getPar(course){
-    getCourseDetails(course).then(function(data) {
-        const thisCourse = data;
-        const courseHoles = thisCourse.holes;
-        let arrOfPar = [];
-        courseHoles.forEach((element) => {
-            let thing = element.teeBoxes[0].teeType;
-            console.log(`Teebox: ${thing}`)
-            console.log(`Hole: ${element.hole}`)
-            let par = element.teeBoxes[0].par;
-            arrOfPar.push(par)
-            console.log(`Total yards: ${arrOfPar}`)
-        });
-        console.log(`Total of handicap course yards: ${arrOfPar}`)
-        return arrOfPar;
-      })
-      .catch(function(error) {
-        console.error('Error:', error);
-      })
+async function getPar(course, id){
+    let arrOfPar = [];
+    const data = await getCourseDetails(course);
+    const thisCourse = data;
+    const courseHoles = thisCourse.holes;
+    courseHoles.forEach((element) => {
+        let thing = element.teeBoxes[id].teeType;
+        // console.log(`Teebox: ${thing}`)
+        // console.log(`Hole: ${element.hole}`)
+        let par = element.teeBoxes[id].par;
+        arrOfPar.push(par)
+        // console.log(`Total yards: ${arrOfPar}`)
+    });
+    // console.log(`Total of par: ${arrOfPar}`)
+    return arrOfPar;
 };
 
 //get the handicaps and return them in an array
-function getHandicap(course){
+async function getHandicap(course, id){
     let arrOfHandicap = [];
-    getCourseDetails(course).then(function(data) {
-        const thisCourse = data;
-        const courseHoles = thisCourse.holes;
-        courseHoles.forEach((element) => {
-            let thing = element.teeBoxes[0].teeType;
-            console.log(`Teebox: ${thing}`)
-            console.log(`Hole: ${element.hole}`)
-            let hcp = element.teeBoxes[0].hcp;
-            let par = element.teeBoxes[0].par;
-            arrOfHandicap.push(hcp+par)
-            console.log(`Total yards: ${arrOfHandicap}`)
-        });
-        console.log(`Total of handicap course yards: ${arrOfHandicap}`)
-        return arrOfHandicap;
-      })
-      .catch(function(error) {
-        console.error('Error:', error);
-      })
-      console.log(arrOfHandicap);
+    const data = await getCourseDetails(course);
+    const thisCourse = data
+    const courseHoles = thisCourse.holes;
+    courseHoles.forEach((element) => {
+        let thing = element.teeBoxes[id].teeType;
+        // console.log(`Teebox: ${thing}`)
+        // console.log(`Hole: ${element.hole}`)
+        let hcp = element.teeBoxes[id].hcp;
+        let par = element.teeBoxes[id].par;
+        arrOfHandicap.push(hcp+par)
+        // console.log(`Total yards: ${arrOfHandicap}`)
+    });
+    // console.log(`Total of handicap course yards: ${arrOfHandicap}`)
+    return arrOfHandicap;
+
 };
 
 // get yards per hole and gives them back in an array
-
 async function getYrdHole(course, id){
     let arrOfHoles = [];
     const data = await getCourseDetails(course);
@@ -171,35 +159,46 @@ async function getYrdHole(course, id){
     courseHoles.forEach((element) => {
         let yrd = element.teeBoxes[id].yards;
         arrOfHoles.push(yrd)
-    }); 
-
+    });
       return arrOfHoles;
 };
 
-//get holes
-function holes(){
-    let holeRow = document.getElementById('holeRow');
-    holeRow.innerHTML = `<td>Hole</td>`;
-    for(let i = 1;i<19;i++){
-        holeRow.innerHTML += `<td>${i}</td>`
-    }
-}
-
-//render tables with info
-// function addTblInfo(){
-// }
-
-//populate tables with info
+//populate and render tables with info
 function teeBoxTBL(course, id){
     let courseNum = Number(course[0]) //
     let idNum = Number(id.charAt(7));
-    let yard = document.getElementById('yardageRow'); //table row
-    yard.innerHTML = `<td>Yardage</td>` //resets table
 
-    holes()
+    // let courseID = document.getElementById('courseID')
+    // courseID.innerHTML = `${course}`
+    let holeRow = document.getElementById('holeRow');
+    holeRow.innerHTML = `<td>Hole</td>`;
+
+    let yard = document.getElementById('yardageRow'); //table row
+    yard.innerHTML = `<td>Yardage</td>`; //resets table
+
+    let cap = document.getElementById('HandicapRow');
+    cap.innerHTML = `<td>Handicap</td>`;
+
+    let par = document.getElementById('parRow');
+    par.innerHTML = `<td>Par</td>`
+
+    for(let i = 1;i<19;i++){
+        holeRow.innerHTML += `<td>${i}</td>`
+    }
+
     getYrdHole(courseNum,idNum).then((arrOfHoles) => {
         arrOfHoles.forEach((elem) => {
             yard.innerHTML += `<td>${elem}</td>`
+        })
+    })
+    getHandicap(courseNum,idNum).then((getHandicap) => {
+        getHandicap.forEach((elem) => {
+            cap.innerHTML += `<td>${elem}</td>`
+        })
+    })
+    getPar(courseNum, idNum).then((getPar) => {
+        getPar.forEach((elem) => {
+            par.innerHTML += `<td>${elem}</td>`;
         })
     })
 
@@ -223,7 +222,7 @@ function addPlayers(elem){
                 <td>${elem}</td>
                 </tr>
             `;
-incr++
+        incr++
         }
     } else {
         playerWarn.innerHTML = `
