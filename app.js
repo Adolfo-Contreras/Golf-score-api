@@ -205,10 +205,10 @@ function teeBoxTBL(course, id){
 }
 
 //populate table with players yo yo yo if you can also do this one then that would be cool
-let incr = 1;
-let tbl = document.getElementById('playersTbl')
 let playerList = 0;
+let incr = 1;
 function addPlayers(elem){
+    let tbl = document.getElementById('playersTbl')
     // let playerList = document.getElementById('showPlayers')
     let playerWarn = document.getElementById('warningPocket')
     console.log(playerList);
