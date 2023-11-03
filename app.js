@@ -34,19 +34,21 @@ let foxGolf = document.getElementById('FoxGolf')
 let thanksgivingGolf = document.getElementById('ThanksgivingGolf')
 let spanishGolf = document.getElementById('SpanishGolf')
 
+
 foxGolf.addEventListener('click',()=>{
-    console.log(getCourseDetails(foxGolf.value))
-    createGolfOptions(foxGolf.value)
-    getYrdHole(foxGolf.value)
+    // getHandicap(foxGolf.value)
+    // console.log(foxGolf.value);
+
+    // getYrdHole(foxGolf.value)
 })
 thanksgivingGolf.addEventListener('click',()=>{
-    console.log(getCourseDetails(thanksgivingGolf.value))
-    createGolfOptions(thanksgivingGolf.value)
+    // console.log(thanksgivingGolf.value)
+
 })
 spanishGolf.addEventListener('click',()=>{
-    console.log(getCourseDetails(spanishGolf.value))
+    // console.log(spanishGolf.value)
+
     // console.log(getPar(spanishGolf.value))
-    createGolfOptions(spanishGolf.value)
 })
 // .finally(function(data){data[1]})
 
@@ -68,17 +70,18 @@ function createGolfOptions(course){
     getCourseDetails(course).then(function(data) {
         const thisCourse = data;
         const courseTees = thisCourse.holes[0].teeBoxes; //goes into the first hole just to get the teeboxes
-        console.log('test');
+
         document.getElementById('teeBoxSelCover').classList.remove('d-none') // grabs the parent div and toggles off the disply:hidden; propety
         let list = document.getElementById('TeeBoxSel')
-
+        list.removeAttribute('class') // deletes any existing classe
+        list.classList.add(`${course}`) //sets the class for the current course
         list.innerHTML = '<option>Select One</option>'// resets the dropdown to this
 
         //adds every Tee option except for the weird one
         let ids = 0;
         courseTees.forEach((elem) => {
             let clean = elem.teeType
-            if (clean !== 'auto change location') list.innerHTML += `<option id="teebox-${ids}" value="${ids}" onClick="teeBoxTBL(this.id)">${clean}</option>`
+            if (clean !== 'auto change location') list.innerHTML += `<option id="teebox-${ids}" value="${ids}" onClick="teeBoxTBL(this.parentNode.classList, this.id)">${clean}</option>`
             ids++
         });
       })
@@ -87,6 +90,9 @@ function createGolfOptions(course){
       })
 }
 
+function test() {
+
+}
 
 //calculate total yards and get hole and whatnot
 function getTotalYrds(course){
@@ -133,10 +139,10 @@ function getPar(course){
 
 //get the handicaps and return them in an array
 function getHandicap(course){
+    let arrOfHandicap = [];
     getCourseDetails(course).then(function(data) {
         const thisCourse = data;
         const courseHoles = thisCourse.holes;
-        let arrOfHandicap = [];
         courseHoles.forEach((element) => {
             let thing = element.teeBoxes[0].teeType;
             console.log(`Teebox: ${thing}`)
@@ -152,60 +158,52 @@ function getHandicap(course){
       .catch(function(error) {
         console.error('Error:', error);
       })
+      console.log(arrOfHandicap);
 };
 
 // get yards per hole and gives them back in an array
-function getYrdHole(course){
-    getCourseDetails(course).then(function(data) {
-        const thisCourse = data;
-        const courseHoles = thisCourse.holes;
-        let arrOfHoles = [];
-        courseHoles.forEach((element) => {
-            console.log(`Hole: ${element.hole}`)
-            let yrd = element.teeBoxes[0].yards;
-            arrOfHoles.push(yrd)
-            console.log(`yards for this hole: ${arrOfHoles}`)
-        });
-        console.log(`Yards of all Holes: ${arrOfHoles}`)
-        return arrOfHoles;
-      })
-      .catch(function(error) {
-        console.error('Error:', error);
-      })
+
+async function getYrdHole(course, id){
+    let arrOfHoles = [];
+    const data = await getCourseDetails(course);
+    const thisCourse = data;
+    const courseHoles = thisCourse.holes;
+    courseHoles.forEach((element) => {
+        let yrd = element.teeBoxes[id].yards;
+        arrOfHoles.push(yrd)
+    }); 
+
+      return arrOfHoles;
 };
+
 //get holes
 function holes(){
-    let holeRow = document.getElementById('holeRow')
+    let holeRow = document.getElementById('holeRow');
+    holeRow.innerHTML = `<td>Hole</td>`;
     for(let i = 1;i<19;i++){
         holeRow.innerHTML += `<td>${i}</td>`
     }
 }
+
 //render tables with info
-function addTblInfo(){
-    holes();
-
-
-}
-// holes()
+// function addTblInfo(){
+// }
 
 //populate tables with info
-function teeBoxTBL(id){
-    Number(id.charAt(7))
+function teeBoxTBL(course, id){
+    let courseNum = Number(course[0]) //
+    let idNum = Number(id.charAt(7));
+    let yard = document.getElementById('yardageRow'); //table row
+    yard.innerHTML = `<td>Yardage</td>` //resets table
 
-    // getCourseDetails(course).then(function(data) {
-    //     const thisCourse = data;
-    //     const courseTees = thisCourse.holes[0].teeBoxes; //goes into the first hole just to get the teeboxes
-    //     console.log('test');
- 
-    //   })
-    //   .catch(function(error) {
-    //     console.error('Error:', error);
-    //   })
+    holes()
+    getYrdHole(courseNum,idNum).then((arrOfHoles) => {
+        arrOfHoles.forEach((elem) => {
+            yard.innerHTML += `<td>${elem}</td>`
+        })
+    })
+
 }
-
-function addTblInfo(){
-    
-};
 
 //populate table with players yo yo yo if you can also do this one then that would be cool
 let incr = 1;
