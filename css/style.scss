@@ -1,3 +1,6 @@
+main{
+    height: 99%;
+}
 #noMar{
     margin: 0;
 }
@@ -6,10 +9,12 @@
         width: 50px;
     }
 }
+.courseSelectContainer{
+    width: fit-content;
+}
 #GolfCourseSelect{
-    .optionthing{
-        width: 80%;
-        color: aqua;
-        font-size: medium;
-    }
+    width:1rem;
+}
+h6{
+    font-style: italic;
 }

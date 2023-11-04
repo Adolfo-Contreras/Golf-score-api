@@ -35,20 +35,23 @@ let thanksgivingGolf = document.getElementById('ThanksgivingGolf')
 let spanishGolf = document.getElementById('SpanishGolf')
 
 
-foxGolf.addEventListener('click',()=>{
+foxGolf.addEventListener('click',()=>{ //this is an arrow function from es6 which is used a lot throughout this program
     let course = foxGolf.value;
     let courseID = document.getElementById('courseID')
     courseID.innerHTML = `Course: ${course}`
+    createGolfOptions(course)
 })
-thanksgivingGolf.addEventListener('click',()=>{
+thanksgivingGolf.addEventListener('click',()=>{ // () => function
     let course = thanksgivingGolf.value;
     let courseID = document.getElementById('courseID')
     courseID.innerHTML = `Course: ${course}`
+    createGolfOptions(course)
 })
-spanishGolf.addEventListener('click',()=>{
+spanishGolf.addEventListener('click',()=>{ // () => function
     let course = spanishGolf.value;
     let courseID = document.getElementById('courseID')
     courseID.innerHTML = `Course: ${course}`
+    createGolfOptions(course)
 })
 // .finally(function(data){data[1]})
 
@@ -115,7 +118,7 @@ function getTotalYrds(course){
 //get the handicaps and return them in an array
 async function getPar(course, id){
     let arrOfPar = [];
-    const data = await getCourseDetails(course);
+    const data = await getCourseDetails(course); // await is part of es6
     const thisCourse = data;
     const courseHoles = thisCourse.holes;
     courseHoles.forEach((element) => {
@@ -133,7 +136,7 @@ async function getPar(course, id){
 //get the handicaps and return them in an array
 async function getHandicap(course, id){
     let arrOfHandicap = [];
-    const data = await getCourseDetails(course);
+    const data = await getCourseDetails(course); // await is part of es6
     const thisCourse = data
     const courseHoles = thisCourse.holes;
     courseHoles.forEach((element) => {
@@ -153,7 +156,7 @@ async function getHandicap(course, id){
 // get yards per hole and gives them back in an array
 async function getYrdHole(course, id){
     let arrOfHoles = [];
-    const data = await getCourseDetails(course);
+    const data = await getCourseDetails(course); // await is part of es6
     const thisCourse = data;
     const courseHoles = thisCourse.holes;
     courseHoles.forEach((element) => {
@@ -186,8 +189,8 @@ function teeBoxTBL(course, id){
         holeRow.innerHTML += `<td>${i}</td>`
     }
 
-    getYrdHole(courseNum,idNum).then((arrOfHoles) => {
-        arrOfHoles.forEach((elem) => {
+    getYrdHole(courseNum,idNum).then((arrOfHoles) => { // () => function
+        arrOfHoles.forEach((elem) => { // () => function
             yard.innerHTML += `<td>${elem}</td>`
         })
     })
