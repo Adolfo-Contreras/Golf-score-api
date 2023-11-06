@@ -30,26 +30,27 @@ function getCourseDetails(courseid){
         console.error('Error:',error);
     })
 }
+let reset = document.getElementById('reset')
 let foxGolf = document.getElementById('FoxGolf')
 let thanksgivingGolf = document.getElementById('ThanksgivingGolf')
 let spanishGolf = document.getElementById('SpanishGolf')
-
-
+let courseID = document.getElementById('courseID')
+reset.addEventListener('click',()=>{
+    courseID.innerHTML = `?????`
+    document.getElementById('teeBoxSelCover').classList.add('d-none')
+})
 foxGolf.addEventListener('click',()=>{ //this is an arrow function from es6 which is used a lot throughout this program
     let course = foxGolf.value;
-    let courseID = document.getElementById('courseID')
     courseID.innerHTML = `Course: ${course}`
     createGolfOptions(course)
 })
 thanksgivingGolf.addEventListener('click',()=>{ // () => function
     let course = thanksgivingGolf.value;
-    let courseID = document.getElementById('courseID')
     courseID.innerHTML = `Course: ${course}`
     createGolfOptions(course)
 })
 spanishGolf.addEventListener('click',()=>{ // () => function
     let course = spanishGolf.value;
-    let courseID = document.getElementById('courseID')
     courseID.innerHTML = `Course: ${course}`
     createGolfOptions(course)
 })
@@ -78,7 +79,7 @@ function createGolfOptions(course){
         let list = document.getElementById('TeeBoxSel')
         list.removeAttribute('class') // deletes any existing classe
         list.classList.add(`${course}`) //sets the class for the current course
-        list.innerHTML = '<option>Select One</option>'// resets the dropdown to this
+        list.innerHTML = `<option id="reset2" onClick="teeBoxTBL(0, 'teebox-0')">Select One</option>` // resets the dropdown to this
 
         //adds every Tee option except for the weird one
         let ids = 0;
@@ -170,20 +171,29 @@ async function getYrdHole(course, id){
 function teeBoxTBL(course, id){
     let courseNum = Number(course[0]) //
     let idNum = Number(id.charAt(7));
-
+    
     // let courseID = document.getElementById('courseID')
     // courseID.innerHTML = `${course}`
+    
     let holeRow = document.getElementById('holeRow');
     holeRow.innerHTML = `<td>Hole</td>`;
-
+    
     let yard = document.getElementById('yardageRow'); //table row
     yard.innerHTML = `<td>Yardage</td>`; //resets table
-
+    
     let cap = document.getElementById('HandicapRow');
     cap.innerHTML = `<td>Handicap</td>`;
-
+    
     let par = document.getElementById('parRow');
-    par.innerHTML = `<td>Par</td>`
+    par.innerHTML = `<td>Par</td>`;
+
+    if (course === 0) {
+        holeRow.innerHTML = `<td>Hole</td>`;
+        yard.innerHTML = `<td>Yardage</td>`;
+        cap.innerHTML = `<td>Handicap</td>`;
+        par.innerHTML = `<td>Par</td>`;
+        return;
+    }
 
     for(let i = 1;i<19;i++){
         holeRow.innerHTML += `<td>${i}</td>`
@@ -212,9 +222,8 @@ let playerList = 0;
 let incr = 1;
 function addPlayers(elem){
     let tbl = document.getElementById('playersTbl')
-    // let playerList = document.getElementById('showPlayers')
     let playerWarn = document.getElementById('warningPocket')
-    console.log(playerList);
+
     if (playerList !== 4) {
         playerList++
         if (elem === '') console.log('enter something smh');
