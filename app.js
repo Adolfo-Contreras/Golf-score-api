@@ -241,13 +241,39 @@ function addPlayers(elem){
 function calcPlayerScore(player){
     //idk how to access the players data but ill make the thing so it adds them up
     let playerScores = []
+
     let playerTotal = 0;
     playerScores.forEach((element)=>{
         playerTotal += element;
     })
     return playerTotal;
 };
+// maybe save the players in an object????? or some way to keep track of players?
+function trackPlayers(){
+    
+}
+// function that creates the rounds
+function nextRound(){
+    let rounds = 0
 
+}
+//function that gets the turn of whoever
+function getPlayerTurn(){
+
+}
+//add a score to the table
+document.getElementById('submitPlayerScore').addEventListener('click', ()=>{
+    pushPlayerScore()
+})
+function pushPlayerScore(){
+    const regex = new RegExp(/^\d+$/);
+    let scoreInput = document.getElementById('playerScoreInput');
+    if(regex.test(scoreInput.value)){
+        console.log(scoreInput.value)
+    }else{
+        alert('Enter a whole Number')
+    }
+}
 //create the tables
 function renderTbl(){}
 //ANIMATIONS AND STYLE STUFF GO HERE if we even do it which idk if we will
