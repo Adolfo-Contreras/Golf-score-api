@@ -214,6 +214,8 @@ function teeBoxTBL(course, id){
 }
 
 //populate table with players
+let playersArr = [];
+let rounds = 1;
 let playerName = document.getElementById('PlayerName');
 let playerList = 0;
 let incr = 1;
@@ -228,13 +230,16 @@ function addPlayers(elem){
             // playerList.innerHTML += `<li class="list-group-item active">${elem}</li>`
             tbl.innerHTML += `
                 <tr id="player${incr}">
-                <td><span>${elem}</span> <button class="Trashbutton"><img src="/icons/trash.svg" alt="TrashCan"></button></td>
+                <td><span id="player${incr}Name">${elem}</span> <button class="Trashbutton"><img src="/icons/trash.svg" alt="TrashCan"></button></td>
                 </tr>
             `;
+            //add players to Arr
+            playertoArr(incr);
              //add event listeners to the trash buttons
              const Trash = Object.values(document.querySelectorAll('.Trashbutton'));
-             console.log(Trash)
+            //  console.log(Trash)
              Trash.forEach((values, index) => {values.setAttribute('onclick',`handleDelete(${index+1})`)});
+             calcPlayerScore(incr-1)
             playerName.value = '';
         incr++;
         }
@@ -244,8 +249,10 @@ function addPlayers(elem){
             <strong>Woah there buddy!</strong> Max player limit reached!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`
-    }
+    }    
 };
+//add players to array
+function playertoArr(pNum){let pName = document.querySelector(`#player${pNum}Name`).innerHTML; let pObj = {name:pName, scores:[1,2,3]}; playersArr.push(pObj); console.log(playersArr)}
 playerName.addEventListener('keydown', function (e){
     if(e.key === 'Enter'){
         addPlayers(playerName.value)
@@ -256,28 +263,21 @@ function handleDelete(playerNum){
     console.log(`Player: ${playerNum}`)
 }
 //calculate player data
-function calcPlayerScore(player){
+function calcPlayerScore(pNum){
     //idk how to access the players data but ill make the thing so it adds them up
-    let playerScores = []
-    let playerTotal = 0;
-    playerScores.forEach((element)=>{
-        playerTotal += element;
-    })
+    let playerScores = playersArr[pNum]
+    let playerTotal = playerScores.scores.reduce((accumulator,currentVal)=>{
+        return accumulator+currentVal
+    },0)
+    console.log(playerTotal)
     return playerTotal;
 };
-// maybe save the players in an object????? or some way to keep track of players?
-function trackPlayers(){
-    
-}
-let rounds = 1
+
 // function that creates the rounds
 function nextRound(){
-    
-
 }
 //function that gets the turn of whoever
 function getPlayerTurn(){
-
 }
 //add a score to the table
 document.getElementById('submitPlayerScore').addEventListener('click', ()=>{
