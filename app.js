@@ -69,7 +69,7 @@ spanishGolf.addEventListener('click',()=>{ // () => function
 //     console.error('Error:', error);
 //   }))
 
-// qwertyqwertyqwerty yo yo yo my brudda you gonna do this one
+// Creates teeboxes based off of course selected
 function createGolfOptions(course){
     getCourseDetails(course).then(function(data) {
         const thisCourse = data;
@@ -94,26 +94,22 @@ function createGolfOptions(course){
       })
 }
 
-//calculate total yards and get hole and whatnot
+//calculate total yards
 // haven't done this one yet
-function getTotalYrds(course){
-    getCourseDetails(course).then(function(data) {
+async function getTotalYrds(course,id){
+    const data = await getCourseDetails(course)
         const thisCourse = data;
-        const courseHoles = thisCourse.holes;
+        const courseHoles = thisCourse.holes; // an array that we can use
         let totalYRD = 0;
         courseHoles.forEach((element) => {
             console.log(`Hole: ${element.hole}`)
-            let yrd = element.teeBoxes[0].yards;
+            let yrd = element.teeBoxes[id].yards;
             totalYRD += yrd
             console.log(`Total yards: ${totalYRD}`)
             // this gets the yards of the first teebox which is champion in this case
         });
         console.log(`Total of whole course yards: ${totalYRD}`)
         return totalYRD;
-      })
-      .catch(function(error) {
-        console.error('Error:', error);
-      })
 };
 
 //get the handicaps and return them in an array
@@ -217,7 +213,8 @@ function teeBoxTBL(course, id){
 
 }
 
-//populate table with players yo yo yo if you can also do this one then that would be cool
+//populate table with players
+let playerName = document.getElementById('PlayerName');
 let playerList = 0;
 let incr = 1;
 function addPlayers(elem){
@@ -231,10 +228,15 @@ function addPlayers(elem){
             // playerList.innerHTML += `<li class="list-group-item active">${elem}</li>`
             tbl.innerHTML += `
                 <tr id="player${incr}">
-                <td>${elem}</td>
+                <td><span>${elem}</span> <button class="Trashbutton"><img src="/icons/trash.svg" alt="TrashCan"></button></td>
                 </tr>
             `;
-        incr++
+             //add event listeners to the trash buttons
+             const Trash = Object.values(document.querySelectorAll('.Trashbutton'));
+             console.log(Trash)
+             Trash.forEach((values, index) => {values.setAttribute('onclick',`handleDelete(${index+1})`)});
+            playerName.value = '';
+        incr++;
         }
     } else {
         playerWarn.innerHTML = `
@@ -243,14 +245,20 @@ function addPlayers(elem){
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`
     }
-}; 
-
+};
+playerName.addEventListener('keydown', function (e){
+    if(e.key === 'Enter'){
+        addPlayers(playerName.value)
+    }
+}) 
+//Delete players
+function handleDelete(playerNum){
+    console.log(`Player: ${playerNum}`)
+}
 //calculate player data
-
 function calcPlayerScore(player){
     //idk how to access the players data but ill make the thing so it adds them up
     let playerScores = []
-
     let playerTotal = 0;
     playerScores.forEach((element)=>{
         playerTotal += element;
@@ -261,9 +269,10 @@ function calcPlayerScore(player){
 function trackPlayers(){
     
 }
+let rounds = 1
 // function that creates the rounds
 function nextRound(){
-    let rounds = 0
+    
 
 }
 //function that gets the turn of whoever
@@ -274,11 +283,17 @@ function getPlayerTurn(){
 document.getElementById('submitPlayerScore').addEventListener('click', ()=>{
     pushPlayerScore()
 })
+document.getElementById('playerScoreInput').addEventListener('keydown', function (e){
+    if(e.key === 'Enter'){
+        pushPlayerScore()
+    }
+})
 function pushPlayerScore(){
     const regex = new RegExp(/^\d+$/);
     let scoreInput = document.getElementById('playerScoreInput');
     if(regex.test(scoreInput.value)){
         console.log(scoreInput.value)
+        scoreInput.value = '';
     }else{
         alert('Enter a whole Number')
     }
