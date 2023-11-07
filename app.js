@@ -215,7 +215,6 @@ function teeBoxTBL(course, id){
 
 //populate table with players
 let playersArr = [];
-let rounds = 1;
 let playerName = document.getElementById('PlayerName');
 let playerList = 0;
 let incr = 1;
@@ -239,7 +238,6 @@ function addPlayers(elem){
              const Trash = Object.values(document.querySelectorAll('.Trashbutton'));
             //  console.log(Trash)
              Trash.forEach((values, index) => {values.setAttribute('onclick',`handleDelete(${index+1})`)});
-             calcPlayerScore(incr-1)
             playerName.value = '';
         incr++;
         }
@@ -252,7 +250,11 @@ function addPlayers(elem){
     }    
 };
 //add players to array
-function playertoArr(pNum){let pName = document.querySelector(`#player${pNum}Name`).innerHTML; let pObj = {name:pName, scores:[1,2,3]}; playersArr.push(pObj); console.log(playersArr)}
+function playertoArr(pNum){
+    let pName = document.querySelector(`#player${pNum}Name`).innerHTML;
+    let pObj = {name:pName, scores:[]}; playersArr.push(pObj);
+    console.log(playersArr)
+}
 playerName.addEventListener('keydown', function (e){
     if(e.key === 'Enter'){
         addPlayers(playerName.value)
@@ -266,18 +268,25 @@ function handleDelete(playerNum){
 function calcPlayerScore(pNum){
     //idk how to access the players data but ill make the thing so it adds them up
     let playerScores = playersArr[pNum]
-    let playerTotal = playerScores.scores.reduce((accumulator,currentVal)=>{
-        return accumulator+currentVal
-    },0)
-    console.log(playerTotal)
-    return playerTotal;
+    let playerTotal = 0;
+    playerScores.scores.forEach((element)=>{
+        playerTotal=playerTotal + Number(element);
+    })
+    // if(!playerTotal){alert('No scores added')}else{
+        console.log(playerTotal)
+        return playerTotal;
 };
-
 // function that creates the rounds
+let currentRound = 1;
+let currentPlayer = 0;
 function nextRound(){
+    currentRound = currentRound += 1
+    currentPlayer = 0
+    updateScores()
 }
-//function that gets the turn of whoever
-function getPlayerTurn(){
+//update the scores of players
+function updateScores(){
+
 }
 //add a score to the table
 document.getElementById('submitPlayerScore').addEventListener('click', ()=>{
@@ -288,18 +297,21 @@ document.getElementById('playerScoreInput').addEventListener('keydown', function
         pushPlayerScore()
     }
 })
+console.log(`curr play is ; ${currentPlayer}`)
 function pushPlayerScore(){
     const regex = new RegExp(/^\d+$/);
     let scoreInput = document.getElementById('playerScoreInput');
     if(regex.test(scoreInput.value)){
-        console.log(scoreInput.value)
+        playersArr[currentPlayer].scores.push(scoreInput.value);
         scoreInput.value = '';
+        // currentPlayer = (currentPlayer+1);
+        //creates html for scores
+        // updateScores()
+        calcPlayerScore(currentPlayer)
     }else{
         alert('Enter a whole Number')
     }
 }
-//create the tables
-function renderTbl(){}
 //ANIMATIONS AND STYLE STUFF GO HERE if we even do it which idk if we will
 
     //change color palate
