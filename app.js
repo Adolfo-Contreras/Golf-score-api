@@ -281,21 +281,18 @@ function calcPlayerScore(pNum){
 let currentRound = 1;
 let currentPlayer = 0;
 function nextRound(){
-    currentRound = currentRound += 2;
+    currentRound = currentRound += 1;
     currentPlayer = 0;
     // updateScores()
 }
 // nextRound()
 //update the scores of players
 function updateScores(){
-    //get player
-    let playerHtml = document.getElementById(`player${currentPlayer+1}`)
-    //get score
-    let roundScore = playersArr[currentPlayer].scores[currentRound-1]
-    playerHtml.innerHTML +=`<td>${roundScore}</td>`
-    if (currentRound === playersArr.length) {
-        nextRound()
-    }
+        //get player
+        let playerHtml = document.getElementById(`player${currentPlayer+1}`)
+        //get score
+        let roundScore = playersArr[currentPlayer].scores[currentRound-1]
+        playerHtml.innerHTML +=`<td>${roundScore}</td>`
 }
 //eventlistener to add a score to the table
 document.getElementById('submitPlayerScore').addEventListener('click', ()=>{
@@ -311,21 +308,41 @@ document.getElementById('playerScoreInput').addEventListener('keydown', function
 console.log(`curr play is ; ${currentPlayer}`)
 function pushPlayerScore(){
     const regex = new RegExp(/^\d+$/);
-    let currentPlayerName = playersArr[currentPlayer].name
     let scoreInput = document.getElementById('playerScoreInput');
-    if(regex.test(scoreInput.value)){
-        playersArr[currentPlayer].scores.push(scoreInput.value);
-        updateScores()
-        //display turn
-        document.getElementById('showTurn').innerText = `Player ${currentPlayerName}'s Turn`
-        scoreInput.value = '';
-        currentPlayer = (currentPlayer+1);
-        console.log(`pushplayer func: ${currentPlayer}`)
-        //creates html for scores
-        // calcPlayerScore(currentPlayer)
+    if (currentPlayer === (playersArr.length) || currentPlayer === (playersArr.length+1)) {
+        nextRound()
+        if(regex.test(scoreInput.value)){
+            playersArr[currentPlayer].scores.push(scoreInput.value);
+            updateScores()
+            //display turn
+            scoreInput.value = '';
+            currentPlayer = (currentPlayer+1);
+            console.log(`pushplayer func: ${currentPlayer}`)
+            //creates html for scores
+            // calcPlayerScore(currentPlayer)
+        }else{
+            alert('Enter a whole Number')
+        }
     }else{
-        alert('Enter a whole Number')
-    }
+        if(regex.test(scoreInput.value)){
+            playersArr[currentPlayer].scores.push(scoreInput.value);
+            updateScores()
+            //display turn
+            scoreInput.value = '';
+            currentPlayer = (currentPlayer+1);
+            console.log(`pushplayer func: ${currentPlayer}`)
+            //creates html for scores
+            // calcPlayerScore(currentPlayer)
+        }else{
+            alert('Enter a whole Number')
+        }
+}
+}
+//start game function
+document.getElementById('startGame').addEventListener('click',()=>{startGame()})
+function startGame(){
+    let currentPlayerName = playersArr[currentPlayer].name
+    document.getElementById('showTurn').innerText = `Player ${currentPlayerName}'s Turn`
 }
 //ANIMATIONS AND STYLE STUFF GO HERE if we even do it which idk if we will
 
