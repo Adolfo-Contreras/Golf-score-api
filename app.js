@@ -93,7 +93,10 @@ function createGolfOptions(course){
         console.error('Error:', error);
       })
 }
-
+//show add players
+function addplayersui(){
+    
+}
 //calculate total yards
 // haven't done this one yet
 async function getTotalYrds(course,id){
@@ -283,9 +286,7 @@ let currentPlayer = 0;
 function nextRound(){
     currentRound = currentRound += 1;
     currentPlayer = 0;
-    // updateScores()
 }
-// nextRound()
 //update the scores of players
 function updateScores(){
         //get player
@@ -306,6 +307,7 @@ document.getElementById('playerScoreInput').addEventListener('keydown', function
     }
 })
 console.log(`curr play is ; ${currentPlayer}`)
+//push score to scorecard and move to next round
 function pushPlayerScore(){
     const regex = new RegExp(/^\d+$/);
     let scoreInput = document.getElementById('playerScoreInput');
@@ -314,9 +316,10 @@ function pushPlayerScore(){
         if(regex.test(scoreInput.value)){
             playersArr[currentPlayer].scores.push(scoreInput.value);
             updateScores()
-            //display turn
             scoreInput.value = '';
             currentPlayer = (currentPlayer+1);
+            //display turn
+            showTurn()
             console.log(`pushplayer func: ${currentPlayer}`)
             //creates html for scores
             // calcPlayerScore(currentPlayer)
@@ -327,9 +330,12 @@ function pushPlayerScore(){
         if(regex.test(scoreInput.value)){
             playersArr[currentPlayer].scores.push(scoreInput.value);
             updateScores()
-            //display turn
             scoreInput.value = '';
-            currentPlayer = (currentPlayer+1);
+            if(currentPlayer<4){
+                currentPlayer = (currentPlayer+1);
+            }
+            //display turn
+            showTurn()
             console.log(`pushplayer func: ${currentPlayer}`)
             //creates html for scores
             // calcPlayerScore(currentPlayer)
@@ -338,11 +344,30 @@ function pushPlayerScore(){
         }
 }
 }
+//show player Turn and round 
+// let conditon = ;
+function showTurn(){
+    let playerTurn = document.getElementById('showTurn')
+        let currentName = playersArr[currentPlayer]
+    if(currentPlayer !== playersArr.length+1 && currentRound !== 18){
+        console.log(`showturn: ${currentPlayer}`)
+        console.log(`showturn arr: ${playersArr.length}`)
+        playerTurn.innerText = `Round ${currentRound}: Player ${currentName.name} turn`
+     }else{
+        playerTurn.innerText = 'Game end!'
+        document.getElementById('submitPlayerScore').classList.add('d-none')
+        document.getElementById('playerScoreInput').classList.add('d-none')
+    }
+}
 //start game function
 document.getElementById('startGame').addEventListener('click',()=>{startGame()})
 function startGame(){
-    let currentPlayerName = playersArr[currentPlayer].name
-    document.getElementById('showTurn').innerText = `Player ${currentPlayerName}'s Turn`
+    showTurn()
+    document.getElementById('createScoreCard').classList.add("noHtml")
+    document.getElementById('ScoreCard').classList.add('centerScoreCard')
+    document.getElementById('playerScoreInput').classList.remove('d-none')
+    document.getElementById('submitPlayerScore').classList.remove('d-none')
+    document.getElementById('startGame').classList.add('d-none')
 }
 //ANIMATIONS AND STYLE STUFF GO HERE if we even do it which idk if we will
 

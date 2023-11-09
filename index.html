@@ -14,8 +14,8 @@
         <nav class="container-fluid bg-black">
         </nav>
     </header>
-    <main class="container-fluid">
-        <section class="my-3">
+    <main class="container-fluid d-flex flex-column justify-content-center">
+        <section id="createScoreCard" class="my-3">
 
             <div class="d-flex flex-column align-items-baseline flex-sm-row gap-1 justify-content-sm-evenly">
                 <div class="courseSelectContainer">
@@ -43,17 +43,17 @@
                     <button class="rounded btn-info" onClick="addPlayers(this.previousElementSibling.value)" type="button" value="Add Player" id="addPlayerBtn">Add Player</button>
                 </div>
             </div>
-                <div class="d-flex justify-content-center align-items-center my-5">
-                    <!-- <button class="rounded btn-info h-50">Delete Player</button> -->
-                    <button id="startGame" class="rounded btn-info h-50">Start Game</button><!--initalizes the scorecard-->
+                <!-- <div class="d-flex justify-content-center align-items-center my-5">
+                    <button class="rounded btn-info h-50">Delete Player</button> -->
+                    
                     <!-- <button class="rounded btn-info my-3">Reset Game</button> (may use this to reset the game and scores for replayability) -->
-                </div>
+                <!-- </div> -->
             
             <!-- <ul class="list-group-numbered" id="showPlayers"></ul> ( may be used idk) -->
             
         </section>
 
-        <section class="table-responsive rounded-4 shadow my-2">
+        <section id="ScoreCard" class="mx-auto justify-content-center table-responsive rounded-4 shadow my-2">
             <table class="table table-striped rounded-5" id="noMar">
                 <thead>
                     <tr id="tableInfo">
@@ -78,9 +78,10 @@
             </table>
         </section>
         
-        <section class="d-flex justify-content-center my-5">
-            <input type="tel" id="playerScoreInput" class="rounded-start-1">
-            <button id="submitPlayerScore" class="rounded-end-1">Submit Player Score</button>
+        <section class="d-flex justify-content-center align-items-center my-5">
+            <button id="startGame" class="rounded btn-info h-100">Start Game</button><!--initalizes the scorecard-->
+            <input type="tel" id="playerScoreInput" class="d-none rounded-start-1">
+            <button id="submitPlayerScore" class="d-none rounded-end-1">Submit Player Score</button>
         </section>
     </main>
 </body>

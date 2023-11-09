@@ -25,4 +25,13 @@ h6 {
 
 .Trashbutton {
   all: unset;
+  margin: 0.5rem;
+}
+
+.noHtml {
+  display: none;
+}
+
+.centerScoreCard {
+  margin: 0 auto;
 }/*# sourceMappingURL=style.css.map */
