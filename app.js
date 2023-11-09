@@ -224,9 +224,8 @@ let incr = 1;
 function addPlayers(elem){
     let tbl = document.getElementById('playersTbl')
     let playerWarn = document.getElementById('warningPocket')
-
+    elem = elem.trim()
     if (playerList !== 4) {
-        playerList++
         if (elem === '') console.log('enter something smh');
         else {
             // playerList.innerHTML += `<li class="list-group-item active">${elem}</li>`
@@ -240,9 +239,10 @@ function addPlayers(elem){
              //add event listeners to the trash buttons
              const Trash = Object.values(document.querySelectorAll('.Trashbutton'));
             //  console.log(Trash)
-             Trash.forEach((values, index) => {values.setAttribute('onclick',`handleDelete(${index+1})`)});
+             Trash.forEach((values, index) => {values.setAttribute('onclick',`handleDelete(this.parentNode.parentNode.id)`)});
             playerName.value = '';
         incr++;
+        playerList++
         }
     } else {
         playerWarn.innerHTML = `
@@ -252,22 +252,58 @@ function addPlayers(elem){
         </div>`
     }    
 };
+
 //add players to array
 function playertoArr(pNum){
     let pName = document.querySelector(`#player${pNum}Name`).innerHTML;
     let pObj = {name:pName, scores:[]}; 
     playersArr.push(pObj);
-    console.log(playersArr)
+    // console.log(playersArr)
 }
 playerName.addEventListener('keydown', function (e){
     if(e.key === 'Enter'){
         addPlayers(playerName.value)
     }
 }) 
+
+
 //Delete players
 function handleDelete(playerNum){
-    console.log(`Player: ${playerNum}`)
+    //grabs the id number of clicked button and converts it into a number
+    playerNum = Number(playerNum.charAt(6));
+
+    //deleted clicked player
+    playerList--
+    let player = document.getElementById(`player${playerNum}`);
+    player.remove()
+
+    let playerList2 = []
+    let playerList3 = []
+
+    //grabs all of any current players
+    playerList2.push(document.getElementById('playersTbl').children[4]);
+    playerList2.push(document.getElementById('playersTbl').children[5]);
+    playerList2.push(document.getElementById('playersTbl').children[6]);
+    playerList2.push(document.getElementById('playersTbl').children[7]);
+    let increment = 1;
+
+    // filters out the undefined ones
+    playerList2.forEach((elem) => {
+        if (elem !== undefined) {
+            playerList3.push(elem)
+        }
+    })
+
+    //updates the id's from 1-4 
+    playerList3.forEach((elem) => {
+        console.log(elem.id);
+        elem.id = `player${increment}`
+        increment++
+        
+    })
 }
+
+
 //calculate player data
 function calcPlayerScore(pNum){
     //idk how to access the players data but ill make the thing so it adds them up
