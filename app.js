@@ -93,26 +93,59 @@ function createGolfOptions(course){
         console.error('Error:', error);
       })
 }
-//show add players
-function addplayersui(){
-    
-}
 //calculate total yards
 // haven't done this one yet
+let gameYrd = 0
 async function getTotalYrds(course,id){
     const data = await getCourseDetails(course)
         const thisCourse = data;
         const courseHoles = thisCourse.holes; // an array that we can use
         let totalYRD = 0;
         courseHoles.forEach((element) => {
-            console.log(`Hole: ${element.hole}`)
+            // console.log(`Hole: ${element.hole}`)
             let yrd = element.teeBoxes[id].yards;
             totalYRD += yrd
-            console.log(`Total yards: ${totalYRD}`)
+            // console.log(`Total yards: ${totalYRD}`)
             // this gets the yards of the first teebox which is champion in this case
         });
-        console.log(`Total of whole course yards: ${totalYRD}`)
+        gameYrd = totalYRD
+        console.log(gameYrd)
         return totalYRD;
+};
+//get total par
+let gamePar = 0;
+async function getTotalPar(course,id){
+    const data = await getCourseDetails(course)
+        const thisCourse = data;
+        const courseHoles = thisCourse.holes; // an array that we can use
+        let totalpar = 0;
+        courseHoles.forEach((element) => {
+            // console.log(`Hole: ${element.hole}`)
+            let yrd = element.teeBoxes[id].par;
+            totalpar += yrd
+            // console.log(`Total par: ${totalpar}`)
+            // this gets the yards of the first teebox which is champion in this case
+        });
+        gamePar = totalpar
+        console.log(`Total of whole course par: ${gamePar}`)
+
+};
+//get handicap
+let gameHcp = 0;
+async function getTotalHcap(course,id){
+    const data = await getCourseDetails(course)
+        const thisCourse = data;
+        const courseHoles = thisCourse.holes; // an array that we can use
+        let totalcap = 0;
+        courseHoles.forEach((element) => {
+            // console.log(`Hole: ${element.hole}`)
+            let hcp = element.teeBoxes[id].hcp;
+            totalcap += hcp
+            // console.log(`Total hcp: ${totalcap}`)
+            // this gets the yards of the first teebox which is champion in this case
+        });
+        gameHcp = totalcap;
+        console.log(`gamehcp ${gameHcp}`)
 };
 
 //get the handicaps and return them in an array
@@ -133,6 +166,7 @@ async function getPar(course, id){
     return arrOfPar;
 };
 
+
 //get the handicaps and return them in an array
 async function getHandicap(course, id){
     let arrOfHandicap = [];
@@ -152,7 +186,6 @@ async function getHandicap(course, id){
     return arrOfHandicap;
 
 };
-
 // get yards per hole and gives them back in an array
 async function getYrdHole(course, id){
     let arrOfHoles = [];
@@ -202,18 +235,23 @@ function teeBoxTBL(course, id){
         arrOfHoles.forEach((elem) => { // () => function
             yard.innerHTML += `<td>${elem}</td>`
         })
+        // yard.innerHTML += `<td>${getTotalYrds(courseNum,idNum)}</td>`
     })
     getHandicap(courseNum,idNum).then((getHandicap) => {
         getHandicap.forEach((elem) => {
             cap.innerHTML += `<td>${elem}</td>`
         })
+        // cap.innerHTML += `<td>${getTotalHcap(courseNum,idNum)}</td>`
     })
     getPar(courseNum, idNum).then((getPar) => {
         getPar.forEach((elem) => {
             par.innerHTML += `<td>${elem}</td>`;
         })
+        // par.innerHTML += `<td>${getTotalPar(courseNum,idNum)}</td>`
     })
-
+    // getTotalYrds(courseNum,idNum)
+    // getTotalPar(courseNum,idNum)
+    // getTotalHcap(courseNum,idNum)
 }
 
 //populate table with players
@@ -369,6 +407,8 @@ function pushPlayerScore(){
             scoreInput.value = '';
             if(currentPlayer<4){
                 currentPlayer = (currentPlayer+1);
+            }else if(currentPlayer >= 4){
+                currentPlayer = 0
             }
             //display turn
             showTurn()
@@ -385,14 +425,20 @@ function pushPlayerScore(){
 function showTurn(){
     let playerTurn = document.getElementById('showTurn')
         let currentName = playersArr[currentPlayer]
-    if(currentPlayer !== playersArr.length+1 && currentRound !== 18){
+    if(currentPlayer !== (playersArr.length+1) && currentRound !== 18){
         console.log(`showturn: ${currentPlayer}`)
         console.log(`showturn arr: ${playersArr.length}`)
-        playerTurn.innerText = `Round ${currentRound}: Player ${currentName.name} turn`
+        playerTurn.innerText = `Round ${currentRound}: Player ${currentName.name} turn`;
      }else{
         playerTurn.innerText = 'Game end!'
         document.getElementById('submitPlayerScore').classList.add('d-none')
         document.getElementById('playerScoreInput').classList.add('d-none')
+        //show total scores
+
+        for (let i = 0; i < playersArr.length; i++) {
+            let playerHtml = document.getElementById(`player${i+1}`)
+            playerHtml.innerHTML += `<td>${calcPlayerScore(i)}</td>`
+        }
     }
 }
 //start game function
@@ -404,9 +450,9 @@ function startGame(){
     document.getElementById('playerScoreInput').classList.remove('d-none')
     document.getElementById('submitPlayerScore').classList.remove('d-none')
     document.getElementById('startGame').classList.add('d-none')
+    //remove trash buttons
+    let trashbutton = document.querySelectorAll('.Trashbutton')
+    trashbutton.forEach((elm)=>{
+        elm.remove()
+    })
 }
-//ANIMATIONS AND STYLE STUFF GO HERE if we even do it which idk if we will
-
-    //change color palate
-
-    //animate top menu
