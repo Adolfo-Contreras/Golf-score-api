@@ -34,4 +34,17 @@ h6 {
 
 .centerScoreCard {
   margin: 0 auto;
+}
+
+body {
+  background-color: aliceblue;
+}
+
+select {
+  color: black;
+  background-color: white;
+}
+
+button {
+  background-color: white;
 }/*# sourceMappingURL=style.css.map */

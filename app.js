@@ -380,11 +380,8 @@ function handleDelete(playerNum){
 // document.getElementById('playerScoreInput').addEventListener('keydown', function (e){
 //     if(e.key === 'Enter'){
 //         pushPlayerScore()
-//         console.log(`next Func: ${currentRound}`)
-//         console.log(`next Func: ${currentPlayer}`)
 //     }
 // })
-// console.log(`curr play is ; ${currentPlayer}`)
 
 
 // //push score to scorecard and move to next round
@@ -400,7 +397,6 @@ function handleDelete(playerNum){
 //             currentPlayer = (currentPlayer+1);
 //             //display turn
 //             showTurn()
-//             console.log(`pushplayer func: ${currentPlayer}`)
 //             //creates html for scores
 //             // calcPlayerScore(currentPlayer)
 //         }else{
@@ -418,9 +414,7 @@ function handleDelete(playerNum){
 //             }
 //             //display turn
 //             showTurn()
-//             console.log(`pushplayer func: ${currentPlayer}`)
 //             //creates html for scores
-//             // calcPlayerScore(currentPlayer)
 //         }else{
 //             alert('Enter a whole Number')
 //         }
@@ -432,8 +426,6 @@ function handleDelete(playerNum){
 //     let playerTurn = document.getElementById('showTurn')
 //         let currentName = playersArr[currentPlayer]
 //     if(currentPlayer !== (playersArr.length+1) && currentRound !== 18){
-//         console.log(`showturn: ${currentPlayer}`)
-//         console.log(`showturn arr: ${playersArr.length}`)
 //         playerTurn.innerText = `Round ${currentRound}: Player ${currentName.name} turn`;
 //      }else{
 //         playerTurn.innerText = 'Game end!'
