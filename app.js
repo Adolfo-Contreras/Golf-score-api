@@ -342,116 +342,186 @@ function handleDelete(playerNum){
 }
 
 
-//calculate player data
-function calcPlayerScore(pNum){
-    //idk how to access the players data but ill make the thing so it adds them up
-    let playerScores = playersArr[pNum]
-    let playerTotal = 0;
-    playerScores.scores.forEach((element)=>{
-        playerTotal=playerTotal + Number(element);
-    })
-    // if(!playerTotal){alert('No scores added')}else{
-        console.log(playerTotal)
-        return playerTotal;
-};
-// function that moves to the next rounds
-let currentRound = 1;
-let currentPlayer = 0;
-function nextRound(){
-    currentRound = currentRound += 1;
-    currentPlayer = 0;
-}
-//update the scores of players
-function updateScores(){
-        //get player
-        let playerHtml = document.getElementById(`player${currentPlayer+1}`)
-        //get score
-        let roundScore = playersArr[currentPlayer].scores[currentRound-1]
-        playerHtml.innerHTML +=`<td>${roundScore}</td>`
-}
-//eventlistener to add a score to the table
-document.getElementById('submitPlayerScore').addEventListener('click', ()=>{
-    pushPlayerScore()
-})
-document.getElementById('playerScoreInput').addEventListener('keydown', function (e){
-    if(e.key === 'Enter'){
-        pushPlayerScore()
-        console.log(`next Func: ${currentRound}`)
-        console.log(`next Func: ${currentPlayer}`)
-    }
-})
-console.log(`curr play is ; ${currentPlayer}`)
-//push score to scorecard and move to next round
-function pushPlayerScore(){
-    const regex = new RegExp(/^\d+$/);
-    let scoreInput = document.getElementById('playerScoreInput');
-    if (currentPlayer === (playersArr.length) || currentPlayer === (playersArr.length+1)) {
-        nextRound()
-        if(regex.test(scoreInput.value)){
-            playersArr[currentPlayer].scores.push(scoreInput.value);
-            updateScores()
-            scoreInput.value = '';
-            currentPlayer = (currentPlayer+1);
-            //display turn
-            showTurn()
-            console.log(`pushplayer func: ${currentPlayer}`)
-            //creates html for scores
-            // calcPlayerScore(currentPlayer)
-        }else{
-            alert('Enter a whole Number')
-        }
-    }else{
-        if(regex.test(scoreInput.value)){
-            playersArr[currentPlayer].scores.push(scoreInput.value);
-            updateScores()
-            scoreInput.value = '';
-            if(currentPlayer<4){
-                currentPlayer = (currentPlayer+1);
-            }else if(currentPlayer >= 4){
-                currentPlayer = 0
-            }
-            //display turn
-            showTurn()
-            console.log(`pushplayer func: ${currentPlayer}`)
-            //creates html for scores
-            // calcPlayerScore(currentPlayer)
-        }else{
-            alert('Enter a whole Number')
-        }
-}
-}
-//show player Turn and round 
-// let conditon = ;
-function showTurn(){
-    let playerTurn = document.getElementById('showTurn')
-        let currentName = playersArr[currentPlayer]
-    if(currentPlayer !== (playersArr.length+1) && currentRound !== 18){
-        console.log(`showturn: ${currentPlayer}`)
-        console.log(`showturn arr: ${playersArr.length}`)
-        playerTurn.innerText = `Round ${currentRound}: Player ${currentName.name} turn`;
-     }else{
-        playerTurn.innerText = 'Game end!'
-        document.getElementById('submitPlayerScore').classList.add('d-none')
-        document.getElementById('playerScoreInput').classList.add('d-none')
-        //show total scores
 
-        for (let i = 0; i < playersArr.length; i++) {
-            let playerHtml = document.getElementById(`player${i+1}`)
-            playerHtml.innerHTML += `<td>${calcPlayerScore(i)}</td>`
+
+// //calculate player data
+// function calcPlayerScore(pNum){
+//     //idk how to access the players data but ill make the thing so it adds them up
+//     let playerScores = playersArr[pNum]
+//     let playerTotal = 0;
+//     playerScores.scores.forEach((element)=>{
+//         playerTotal=playerTotal + Number(element);
+//     })
+//     // if(!playerTotal){alert('No scores added')}else{
+//         console.log(playerTotal)
+//         return playerTotal;
+// };
+
+
+// // function that moves to the next rounds
+// let currentRound = 1;
+// let currentPlayer = 0;
+// function nextRound(){
+//     currentRound = currentRound += 1;
+//     currentPlayer = 0;
+// }
+// //update the scores of players
+// function updateScores(){
+//         //get player
+//         let playerHtml = document.getElementById(`player${currentPlayer+1}`)
+//         //get score
+//         let roundScore = playersArr[currentPlayer].scores[currentRound-1]
+//         playerHtml.innerHTML +=`<td>${roundScore}</td>`
+// }
+// //eventlistener to add a score to the table
+// document.getElementById('submitPlayerScore').addEventListener('click', ()=>{
+//     pushPlayerScore()
+// })
+// document.getElementById('playerScoreInput').addEventListener('keydown', function (e){
+//     if(e.key === 'Enter'){
+//         pushPlayerScore()
+//         console.log(`next Func: ${currentRound}`)
+//         console.log(`next Func: ${currentPlayer}`)
+//     }
+// })
+// console.log(`curr play is ; ${currentPlayer}`)
+
+
+// //push score to scorecard and move to next round
+// function pushPlayerScore(){
+//     const regex = new RegExp(/^\d+$/);
+//     let scoreInput = document.getElementById('playerScoreInput');
+//     if (currentPlayer === (playersArr.length) || currentPlayer === (playersArr.length+1)) {
+//         nextRound()
+//         if(regex.test(scoreInput.value)){
+//             playersArr[currentPlayer].scores.push(scoreInput.value);
+//             updateScores()
+//             scoreInput.value = '';
+//             currentPlayer = (currentPlayer+1);
+//             //display turn
+//             showTurn()
+//             console.log(`pushplayer func: ${currentPlayer}`)
+//             //creates html for scores
+//             // calcPlayerScore(currentPlayer)
+//         }else{
+//             alert('Enter a whole Number')
+//         }
+//     }else{
+//         if(regex.test(scoreInput.value)){
+//             playersArr[currentPlayer].scores.push(scoreInput.value);
+//             updateScores()
+//             scoreInput.value = '';
+//             if(currentPlayer<4){
+//                 currentPlayer = (currentPlayer+1);
+//             }else if(currentPlayer >= 4){
+//                 currentPlayer = 0
+//             }
+//             //display turn
+//             showTurn()
+//             console.log(`pushplayer func: ${currentPlayer}`)
+//             //creates html for scores
+//             // calcPlayerScore(currentPlayer)
+//         }else{
+//             alert('Enter a whole Number')
+//         }
+// }
+// }
+// //show player Turn and round 
+// // let conditon = ;
+// function showTurn(){
+//     let playerTurn = document.getElementById('showTurn')
+//         let currentName = playersArr[currentPlayer]
+//     if(currentPlayer !== (playersArr.length+1) && currentRound !== 18){
+//         console.log(`showturn: ${currentPlayer}`)
+//         console.log(`showturn arr: ${playersArr.length}`)
+//         playerTurn.innerText = `Round ${currentRound}: Player ${currentName.name} turn`;
+//      }else{
+//         playerTurn.innerText = 'Game end!'
+//         document.getElementById('submitPlayerScore').classList.add('d-none')
+//         document.getElementById('playerScoreInput').classList.add('d-none')
+//         //show total scores
+
+//         for (let i = 0; i < playersArr.length; i++) {
+//             let playerHtml = document.getElementById(`player${i+1}`)
+//             playerHtml.innerHTML += `<td>${calcPlayerScore(i)}</td>`
+//         }
+//     }
+// }
+// //start game function
+
+// enter function to handle all enter key press
+
+function enterAll(event) {
+    if (event.key === 'Enter' || event == true ){
+        let playerScoreInput = Number(document.getElementById('playerScoreInput').value.trim())
+        
+        if (isNaN(playerScoreInput)) {
+            console.log(`enter a number`);
+        } else {
+            cycleRounds();
         }
     }
 }
-//start game function
-document.getElementById('startGame').addEventListener('click',()=>{startGame()})
+
+let roundInc = 1
+let round2 = 0
+function cycleRounds() {
+    if (round2 === max_rounds) {
+        console.log('game over');
+        return 
+    }
+
+    if (thingArr2.length === 0) {
+        // yell at the player for putting no players or something lol
+        return
+    };
+    switch (roundInc) {
+        case 1:
+            p1.innerHTML += `<td>test</td>`
+            break;
+        case 2:
+            p2.innerHTML += `<td>test</td>`
+            break;
+        case 3:
+            p3.innerHTML += `<td>test</td>`
+            break;
+        case 4:
+            p4.innerHTML += `<td>test</td>`
+            break;
+    }
+    if (roundInc > roundMatch - 1) roundInc = 1;
+    else roundInc++
+    round2++
+}
+
+
+let thingArr2 = [];
+let p1; let p2; let p3; let p4;
+let max_rounds = 0; //18 for solo //36 for duo //54 for trio //72 for squad
+let roundMatch;
 function startGame(){
-    showTurn()
+    // showTurn()
+
+    p1 = document.getElementById('playersTbl').children[4]
+    p2 = document.getElementById('playersTbl').children[5]
+    p3 = document.getElementById('playersTbl').children[6]
+    p4 = document.getElementById('playersTbl').children[7]
+
+    let thingArr = [];
+    thingArr.push(p1,p2,p3,p4);
+
+    thingArr.forEach((elem) => {if (elem !== undefined) thingArr2.push(elem)})
+
+    roundMatch = thingArr2.length; //how many players we have
+    max_rounds = 18 * roundMatch; 
+
+    // hides everything and stuff
     document.getElementById('createScoreCard').classList.add("noHtml")
     document.getElementById('ScoreCard').classList.add('centerScoreCard')
     document.getElementById('playerScoreInput').classList.remove('d-none')
     document.getElementById('submitPlayerScore').classList.remove('d-none')
     document.getElementById('startGame').classList.add('d-none')
-    //remove trash buttons
-    let trashbutton = document.querySelectorAll('.Trashbutton')
+    let trashbutton = document.querySelectorAll('.Trashbutton')//removes trash buttons
     trashbutton.forEach((elm)=>{
         elm.remove()
     })

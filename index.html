@@ -72,6 +72,24 @@
                     </tr>
                     <tr id="HandicapRow">
                         <td>Handicap</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>14</td>
+                        <td>15</td>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>18</td>
                     </tr>
                     <caption id="showTurn">Round 1!</caption><!--so this will show up and tell us whos turn it is-->
                 </tbody>
@@ -79,9 +97,9 @@
         </section>
         
         <section class="d-flex justify-content-center align-items-center my-5">
-            <button id="startGame" class="rounded btn-info h-100">Start Game</button><!--initalizes the scorecard-->
-            <input type="tel" id="playerScoreInput" class="d-none rounded-start-1">
-            <button id="submitPlayerScore" class="d-none rounded-end-1">Submit Player Score</button>
+            <button id="startGame" class="rounded btn-info h-100" onclick="startGame()">Start Game</button><!--initalizes the scorecard-->
+            <input type="tel" id="playerScoreInput" class="d-none rounded-start-1" onkeydown="enterAll(event)">
+            <button id="submitPlayerScore" class="d-none rounded-end-1" onclick="enterAll(true)">Submit Player Score</button>
         </section>
     </main>
 </body>
