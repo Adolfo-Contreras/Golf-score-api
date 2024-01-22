@@ -39,7 +39,7 @@
                 <div>
                     <h1 class="mb-4">Add up to 4 Players to the Game</h1>
                     <div id="warningPocket"><!--activated when max players are reached--></div>
-                    <input class="rounded" type="text" name="PlayerName" id="PlayerName" placeholder="Enter Player Name Here">
+                    <input class="rounded" type="text" name="PlayerName" id="PlayerName" onkeydown="enterAll(event, 2)" placeholder="Enter Player Name Here">
                     <button class="rounded btn-info" onClick="addPlayers(this.previousElementSibling.value)" type="button" value="Add Player" id="addPlayerBtn">Add Player</button>
                 </div>
             </div>
@@ -58,6 +58,11 @@
                 <thead>
                     <tr id="tableInfo">
                         <th id="courseID">Course: ??????</th>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td>Total</td>
+                        
                     </tr>
                 </thead>
                 <tbody id="playersTbl">
@@ -72,15 +77,16 @@
                     </tr>
                     <tr id="HandicapRow">
                         <td>Handicap</td>
+                        
                     </tr>
-                    <caption id="showTurn">Round 1!</caption><!--so this will show up and tell us whos turn it is-->
+                    <caption><span id="showTurn">Hole 1!</span> <span id="playerTurn"></span></caption><!--so this will show up and tell us whos turn it is-->
                 </tbody>
             </table>
         </section>
         
-        <section class="d-flex justify-content-center align-items-center my-5">
+        <section id="submitPocket" class="d-flex justify-content-center align-items-center my-5">
             <button id="startGame" class="rounded btn-info h-100" onclick="startGame()">Start Game</button><!--initalizes the scorecard-->
-            <input type="tel" id="playerScoreInput" class="d-none rounded-start-1" onkeydown="enterAll(event)">
+            <input type="tel" id="playerScoreInput" class="d-none rounded-start-1" onkeydown="enterAll(event, 1)">
             <button id="submitPlayerScore" class="d-none rounded-end-1" onclick="enterAll(true)">Submit Player Score</button>
         </section>
     </main>
